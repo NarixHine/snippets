@@ -35,9 +35,19 @@ Unset. Put `english.woff2`, `english-italic.woff2` and `chinese.woff2` in
 
 ```sh
 pnpm install
-pnpm dev        # http://localhost:3000
+pnpm dev        # https://snippets.localhost
 pnpm build
 ```
+
+`pnpm dev` runs Next through [portless](https://github.com/vercel-labs/portless)
+(Vercel Labs, installed globally — not a project dependency), so the dev server
+has a stable HTTPS name instead of a port: `https://snippets.localhost`. The
+name comes from the package name; worktrees get a branch-name subdomain
+automatically. Bypass it with `PORTLESS=0 pnpm dev` for plain
+`http://localhost:3000`.
+
+portless wants Node 24+ (`portless doctor` reports Node 22.14 as unsupported
+here); it works regardless, but upgrade Node if you hit proxy oddities.
 
 ## Deploy
 
