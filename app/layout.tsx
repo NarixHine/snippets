@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { notoSerifSC, sourceSerif } from './fonts'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='en'>
+    <html lang='en' className={`${sourceSerif.variable} ${notoSerifSC.variable}`}>
       <body className='bg-paper font-serif text-ink antialiased'>{children}</body>
     </html>
   )

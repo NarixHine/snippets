@@ -28,8 +28,11 @@ Dates render as `2026/3/2` in every language. `lang` only sets the page's
 
 ## Fonts
 
-Unset. Put `english.woff2`, `english-italic.woff2` and `chinese.woff2` in
-`public/fonts/` — see `public/fonts/README.md`. System serif stack until then.
+Self-hosted by `next/font/google` (see `app/fonts.ts`): **Source Serif 4** for
+Latin, **Noto Serif SC** for Chinese. Both are downloaded and inlined at build
+time, so nothing is requested from Google at runtime. `app/globals.css`
+consumes the two CSS variables and keeps system serifs as fallbacks. Latin
+glyphs resolve in Source Serif 4, CJK falls through the stack to Noto Serif SC.
 
 ## Run
 
