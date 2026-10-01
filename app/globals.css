@@ -1,0 +1,65 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------- fonts
+   Drop your own files into public/fonts/ and they take over on the next
+   build, no code change:
+
+     public/fonts/english.woff2          Latin text
+     public/fonts/english-italic.woff2   Latin italics (optional)
+     public/fonts/chinese.woff2          CJK text
+
+   Until those files exist the browser silently falls through to the
+   system stack declared in --font-serif below.                        */
+
+@font-face {
+  font-family: 'Paper English';
+  src: url('/fonts/english.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paper English';
+  src: url('/fonts/english-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paper Chinese';
+  src: url('/fonts/chinese.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-serif: 'Paper English', 'Paper Chinese', 'Iowan Old Style', 'Palatino Linotype',
+    Palatino, 'Songti SC', 'Source Han Serif SC', 'Noto Serif CJK SC', Georgia, serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Helvetica Neue', Arial,
+    'PingFang SC', 'Hiragino Sans GB', sans-serif;
+
+  --color-paper: #fbf9f6;
+  --color-ink: #2e2822;
+  --color-muted: #8b837b;
+  --color-rule: #e6e2dc;
+  --color-accent: #473d35;
+}
+
+html {
+  color-scheme: light dark;
+  background-color: var(--color-paper);
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper: #14120f;
+    --color-ink: #ebe2d7;
+    --color-muted: #928779;
+    --color-rule: #2b2621;
+    --color-accent: #d9c8b5;
+  }
+}
