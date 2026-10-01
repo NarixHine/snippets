@@ -1,22 +1,17 @@
 import localFont from 'next/font/local'
-import { Source_Serif_4 } from 'next/font/google'
+import { Newsreader, Source_Serif_4 } from 'next/font/google'
 
-// Latin is self-hosted at build time by next/font — nothing is fetched from
-// Google at runtime. Chinese is the local 方正刻本仿宋简体, lib/FZKBFSJW.woff2.
-// Latin resolves in Source Serif 4 and CJK falls through to it; see --font-serif
-// in app/globals.css.
-
-export const sourceSerif = Source_Serif_4({
+export const english = Newsreader({
   subsets: ['latin'],
   style: ['normal', 'italic'],
   display: 'swap',
-  variable: '--font-source-serif',
+  variable: '--font-en-serif',
 })
 
-export const notoSerifSC = localFont({
-  src: '../lib/FZKBFSJW.woff2',
+export const chinese = localFont({
+  src: '../lib/chinese.ttf',
   weight: '400',
   display: 'swap',
   preload: false,
-  variable: '--font-noto-serif',
+  variable: '--font-zh-serif',
 })

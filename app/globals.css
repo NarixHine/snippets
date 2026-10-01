@@ -4,7 +4,7 @@
   /* Latin text resolves in Source Serif 4; a Latin face carries no CJK glyphs,
      so Chinese falls through the stack to Noto Serif SC, then to whatever
      serif the OS has. Both webfonts are self-hosted by next/font (app/fonts.ts). */
-  --font-serif: var(--font-source-serif), var(--font-noto-serif), 'Iowan Old Style',
+  --font-serif: var(--font-en-serif), var(--font-zh-serif), 'Iowan Old Style',
     'Palatino Linotype', Palatino, 'Songti SC', 'Source Han Serif SC',
     'Noto Serif CJK SC', Georgia, serif;
   --font-sans: ui-sans-serif, system-ui, -apple-system, 'Helvetica Neue', Arial,
@@ -15,6 +15,10 @@
   --color-muted: #8b837b;
   --color-rule: #e6e2dc;
   --color-accent: #473d35;
+
+  /* Built-in CSS easings are too weak for UI; this is the strong ease-out
+     curve for press and hover feedback. */
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 html {
@@ -31,4 +35,61 @@ html {
     --color-rule: #2b2621;
     --color-accent: #d9c8b5;
   }
+}
+
+.audio-seek {
+  --seek-line: color-mix(in srgb, var(--color-ink) 20%, transparent);
+  --seek-color: var(--color-ink);
+}
+
+.audio-seek::-webkit-slider-runnable-track,
+.audio-seek::-moz-range-track {
+  height: 2px;
+  border-radius: 2px;
+}
+
+.audio-seek::-webkit-slider-runnable-track {
+  border-radius: 2px;
+  background: linear-gradient(to right, var(--seek-color) var(--audio-progress), var(--seek-line) var(--audio-progress));
+}
+
+.audio-seek::-moz-range-track {
+  border-radius: 2px;
+  background: var(--seek-line);
+}
+
+.audio-seek::-moz-range-progress {
+  border-radius: 2px;
+  background: var(--seek-color);
+}
+
+.audio-seek::-webkit-slider-thumb {
+  width: 7px;
+  height: 7px;
+  margin-top: -3px;
+  appearance: none;
+  border: 1px solid var(--color-paper);
+  border-radius: 50%;
+  background: var(--seek-color);
+  box-shadow: 0 0 0 1px var(--seek-color);
+}
+
+.audio-seek::-moz-range-thumb {
+  width: 5px;
+  height: 5px;
+  border: 1px solid var(--color-paper);
+  border-radius: 50%;
+  background: var(--seek-color);
+  box-shadow: 0 0 0 1px var(--seek-color);
+}
+
+.audio-seek:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid color-mix(in srgb, var(--color-accent) 55%, transparent);
+  outline-offset: 2px;
+}
+
+.audio-seek:disabled::-webkit-slider-runnable-track,
+.audio-seek:disabled::-moz-range-track {
+  opacity: 0.6;
 }
