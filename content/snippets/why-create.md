@@ -12,3 +12,5 @@ lang: zh
 2. 为人：提高身边人的生产效率，助其创造价值（“为己”的前提）；经由软件“让生活更美好”。乃至高效化、流畅化、人性化人们与科技的互动，向💰💰💰驱动的软件市场中注入些许温热的❤️。我讨厌冰冷的、向钱看的、不用心打磨、“能跑就行”的一切软件！
 
 如果说“人拥有可以让世界更美好的力量”的话，科技绝非唯一的却是其中不可或缺的一股力量，同时它需要被在乎“人”的人运用。It gives people like me a powerful sense of agency and a strong case for being optimistic about the future! 很喜欢 David Heinemeier Hansson 的一句话：“We can fix, not some things, but everything!”
+
+![“We can fix, not some things, but everything!”](/omarchy-fix-everything.png)
