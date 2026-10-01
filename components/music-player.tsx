@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react'
 type Props = {
   src: string
   name?: string
+  author?: string
 }
 
 function clock(seconds: number): string {
@@ -14,7 +15,7 @@ function clock(seconds: number): string {
   return `${Math.floor(whole / 60)}:${String(whole % 60).padStart(2, '0')}`
 }
 
-export default function MusicPlayer({ src, name }: Props) {
+export default function MusicPlayer({ src, name, author }: Props) {
   const audio = useRef<HTMLAudioElement>(null)
   const [playing, setPlaying] = useState(false)
   const [time, setTime] = useState(0)
@@ -102,7 +103,10 @@ export default function MusicPlayer({ src, name }: Props) {
 
         <div className='min-w-0 flex-1'>
           <div className='flex min-w-0 items-baseline justify-between gap-3'>
-            <span className='truncate text-[0.875rem] text-ink/90'>{name ?? 'Music'}</span>
+            <span className='flex min-w-0 items-baseline gap-2 truncate text-[0.875rem]'>
+              <span className='truncate text-ink/90'>{name ?? 'Music'}</span>
+              {author ? <span className='shrink-0 text-[0.75rem] text-muted'>{author}</span> : null}
+            </span>
             <span className='shrink-0 text-[0.7rem] tabular-nums text-muted' aria-live='off'>
               <span className='text-ink/70'>{clock(time)}</span>
               <span className='px-1 text-muted/70' aria-hidden='true'>/</span>

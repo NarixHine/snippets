@@ -38,16 +38,17 @@ music: /music/rain.m4a          # label falls back to "Music"
 music:                          # or give it a label
   src: /music/rain.m4a
   title: 雨
+  author: Kiroro
+
+music: /music/rain.m4a          # or use sibling fields
+music-name: 雨
+music-author: Kiroro
 ```
 
-Audio lives in `public/music/`. The player streams nothing until you press play
-(`preload="metadata"`): it shows one line — play/pause, the label, `elapsed /
-total` — with a hairline scrubber under it. The hairline's played portion is
-solid accent, the thumb is a paper-ringed dot, and the line thickens and the dot
-appears on hover, on keyboard focus and while dragging. Click anywhere on it to
-seek; drag to scrub; it is a real `<input type="range">` underneath, so arrow
-keys work when it is focused. `prefers-reduced-motion` keeps the colour and
-opacity changes and drops the movement.
+Audio lives in `public/music/`. The player waits for a press before playback
+(`preload="metadata"`). It shows play/pause, the track name, an optional muted
+author, elapsed and total time, and a seek control. The native range input
+supports touch and keyboard seeking.
 
 It is the site's one client component. Pages without `music` render no player,
 no audio element and no script for it.

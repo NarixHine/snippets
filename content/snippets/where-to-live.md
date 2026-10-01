@@ -1,7 +1,10 @@
 ---
 date: 2026-10-01
 lang: zh
-music: /fuyunouta.mp3
+music:
+  src: /fuyunouta.mp3
+  name: 冬のうた
+  author: Kiroro
 ---
 
 （我有一段时间很喜欢 Kiroro 的歌。Kiroro 的歌虽然不乏伤感，却充满希望感。）

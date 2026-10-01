@@ -15,7 +15,7 @@ export type Snippet = {
   plain: string
 }
 
-export type Music = { src: string; name?: string }
+export type Music = { src: string; name?: string; author?: string }
 
 function bad(file: string, message: string): never {
   throw new Error(`content/snippets/${file} — ${message}`)
@@ -39,34 +39,41 @@ function toName(file: string, value: unknown, key: string): string | undefined {
 
 /**
  * `music: /path.mp3`, `music: { src, name }`, or the shorthand `music: <path>`
- * with a sibling `music-name:` for the label. `title` is accepted as an alias of
- * `name` inside the object. Precedence: `music-name` > `name` > `title`.
+ * with sibling `music-name:` and `music-author:` fields. `title` is accepted as
+ * an alias of `name` inside the object. Sibling values take precedence.
  */
-function toMusic(file: string, value: unknown, sibling: unknown): Music | undefined {
+function toMusic(
+  file: string,
+  value: unknown,
+  siblingName: unknown,
+  siblingAuthor: unknown,
+): Music | undefined {
   if (value === undefined || value === null) return undefined
 
-  const siblingName = toName(file, sibling, '`music-name`')
+  const name = toName(file, siblingName, '`music-name`')
+  const author = toName(file, siblingAuthor, '`music-author`')
 
   if (typeof value === 'string') {
     if (value.trim() === '') bad(file, '`music` needs a file path or url')
-    return { src: value.trim(), name: siblingName }
+    return { src: value.trim(), name, author }
   }
 
   if (typeof value === 'object' && !Array.isArray(value)) {
-    const { src, name, title } = value as { src?: unknown; name?: unknown; title?: unknown }
+    const src = 'src' in value ? value.src : undefined
+    const objectName = 'name' in value ? value.name : undefined
+    const title = 'title' in value ? value.title : undefined
+    const objectAuthor = 'author' in value ? value.author : undefined
     if (typeof src !== 'string' || src.trim() === '') {
       bad(file, '`music.src` must be a file path or url')
     }
     return {
       src: src.trim(),
-      name:
-        siblingName ??
-        toName(file, name, '`music.name`') ??
-        toName(file, title, '`music.title`'),
+      name: name ?? toName(file, objectName, '`music.name`') ?? toName(file, title, '`music.title`'),
+      author: author ?? toName(file, objectAuthor, '`music.author`'),
     }
   }
 
-  bad(file, '`music` must be a path/url or `{ src, name }`')
+  bad(file, '`music` must be a path/url or `{ src, name, author }`')
 }
 
 function readOne(file: string): Snippet {
@@ -78,7 +85,7 @@ function readOne(file: string): Snippet {
 
   if (data.title !== undefined && typeof data.title !== 'string') bad(file, '`title` must be a string')
 
-  const music = toMusic(file, data.music, data['music-name'])
+  const music = toMusic(file, data.music, data['music-name'], data['music-author'])
 
   const body = content.trim()
   if (body === '') bad(file, 'the body is empty')

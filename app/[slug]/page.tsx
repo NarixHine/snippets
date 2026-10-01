@@ -47,7 +47,7 @@ export default async function SnippetPage({ params }: PageProps) {
   return (
     <main className='mx-auto w-full max-w-136 px-6 py-10 sm:py-16'>
       <article lang={lang}>
-        {music ? <MusicPlayer src={music.src} name={music.name} /> : null}
+        {music ? <MusicPlayer src={music.src} name={music.name} author={music.author} /> : null}
 
         {title ? (
           <h1 className='mb-3 text-[1.5rem] leading-[1.35] font-normal text-balance'>{title}</h1>
