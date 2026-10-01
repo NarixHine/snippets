@@ -34,16 +34,16 @@ Unset. Put `english.woff2`, `english-italic.woff2` and `chinese.woff2` in
 ## Run
 
 ```sh
-pnpm install
-pnpm dev        # https://snippets.localhost
-pnpm build
+bun install
+bun run dev     # https://snippets.localhost
+bun run build
 ```
 
-`pnpm dev` runs Next through [portless](https://github.com/vercel-labs/portless)
+`bun run dev` runs Next through [portless](https://github.com/vercel-labs/portless)
 (Vercel Labs, installed globally — not a project dependency), so the dev server
 has a stable HTTPS name instead of a port: `https://snippets.localhost`. The
 name comes from the package name; worktrees get a branch-name subdomain
-automatically. Bypass it with `PORTLESS=0 pnpm dev` for plain
+automatically. Bypass it with `PORTLESS=0 bun run dev` for plain
 `http://localhost:3000`.
 
 portless wants Node 24+ (`portless doctor` reports Node 22.14 as unsupported
