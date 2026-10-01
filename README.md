@@ -14,19 +14,17 @@ Create `content/snippets/<slug>.md`. The filename is the slug, so
 date: 2026-03-02          # required, YYYY-MM-DD
 title: On walking home    # optional
 lang: en                  # optional, defaults to en — set zh for Chinese
-links:                    # optional, rendered as "Also on …"
-  - label: X
-    url: https://x.com/…
 ---
 
-Body in Markdown. Blank line between paragraphs.
+Body in Markdown. Blank line between paragraphs. Outbound links are ordinary
+inline Markdown: `[also on X](https://x.com/…)`.
 ```
 
-Frontmatter is validated at build time; a missing date or a malformed link
-fails the build with the offending filename.
+Frontmatter is validated at build time; a missing date fails the build with the
+offending filename.
 
-`lang: zh` also switches the page to Chinese conventions — the date reads
-`2026年2月14日` and the outbound row is labelled 另见 instead of "Also on".
+Dates render as `2026/3/2` in every language. `lang` only sets the page's
+`lang` attribute and Open Graph locale — it is not a translation switch.
 
 ## Fonts
 

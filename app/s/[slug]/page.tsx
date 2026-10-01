@@ -41,8 +41,7 @@ export default async function SnippetPage({ params }: PageProps) {
 
   if (!snippet) notFound()
 
-  const { title, date, lang, links, html } = snippet
-  const cjk = lang.toLowerCase().startsWith('zh')
+  const { title, date, lang, html } = snippet
 
   return (
     <main className='mx-auto w-full max-w-[34rem] px-6 pt-24 pb-28 sm:pt-36 sm:pb-32'>
@@ -53,37 +52,15 @@ export default async function SnippetPage({ params }: PageProps) {
 
         <time
           dateTime={date}
-          className={
-            'block font-sans text-[0.72rem] text-muted ' +
-            (cjk ? 'tracking-[0.08em]' : 'tracking-[0.16em] uppercase')
-          }
+          className='block font-sans text-[0.72rem] tracking-[0.08em] text-muted'
         >
-          {formatDate(date, lang)}
+          {formatDate(date)}
         </time>
 
         <div
           className='mt-10 space-y-[1.35em] text-[1.0625rem] leading-[1.8] text-pretty [&_a]:text-accent [&_a]:underline [&_a]:decoration-[0.5px] [&_a]:underline-offset-[3px] [&_blockquote]:border-l [&_blockquote]:border-rule [&_blockquote]:pl-4 [&_blockquote]:text-muted [&_code]:font-sans [&_code]:text-[0.85em] [&_h2]:text-[1.05rem] [&_h2]:font-normal [&_hr]:border-rule [&_img]:max-w-full [&_strong]:font-medium'
           dangerouslySetInnerHTML={{ __html: html }}
         />
-
-        {links.length > 0 ? (
-          <footer className='mt-16 flex flex-wrap items-baseline gap-x-6 gap-y-2 border-t border-rule pt-5 font-sans text-[0.78rem] text-muted'>
-            <span className={'text-[0.7rem] ' + (cjk ? '' : 'tracking-[0.14em] uppercase')}>
-              {cjk ? '另见' : 'Also on'}
-            </span>
-            {links.map((link) => (
-              <a
-                key={link.url}
-                href={link.url}
-                target='_blank'
-                rel='noreferrer noopener'
-                className='text-accent underline decoration-[0.5px] underline-offset-[3px]'
-              >
-                {link.label}
-              </a>
-            ))}
-          </footer>
-        ) : null}
       </article>
     </main>
   )

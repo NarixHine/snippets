@@ -5,14 +5,11 @@ import { marked } from 'marked'
 
 const DIR = path.join(process.cwd(), 'content', 'snippets')
 
-export type SnippetLink = { label: string; url: string }
-
 export type Snippet = {
   slug: string
   date: string
   title?: string
   lang: string
-  links: SnippetLink[]
   html: string
   plain: string
 }
@@ -39,18 +36,6 @@ function readOne(file: string): Snippet {
 
   if (data.title !== undefined && typeof data.title !== 'string') bad(file, '`title` must be a string')
 
-  const links: SnippetLink[] = []
-  if (data.links !== undefined) {
-    if (!Array.isArray(data.links)) bad(file, '`links` must be a list of { label, url }')
-    for (const entry of data.links as Array<Record<string, unknown>>) {
-      const { label, url } = entry ?? {}
-      if (typeof label !== 'string' || typeof url !== 'string') {
-        bad(file, 'every link needs a `label` and a `url`')
-      }
-      links.push({ label, url })
-    }
-  }
-
   const body = content.trim()
   if (body === '') bad(file, 'the body is empty')
 
@@ -61,7 +46,6 @@ function readOne(file: string): Snippet {
     date,
     title: typeof data.title === 'string' && data.title.trim() !== '' ? data.title.trim() : undefined,
     lang: typeof data.lang === 'string' && data.lang.trim() !== '' ? data.lang.trim() : 'en',
-    links,
     html,
     plain: html
       .replace(/<\/(p|div|blockquote|li|h[1-6])>/g, ' ')
@@ -102,11 +86,7 @@ export function getSnippet(slug: string): Snippet | undefined {
   return allSnippets().find((snippet) => snippet.slug === slug)
 }
 
-export function formatDate(date: string, lang = 'en'): string {
-  return new Intl.DateTimeFormat(lang.toLowerCase().startsWith('zh') ? 'zh-CN' : 'en-GB', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-    timeZone: 'UTC',
-  }).format(new Date(`${date}T00:00:00Z`))
+export function formatDate(date: string): string {
+  const [year, month, day] = date.split('-')
+  return `${year}/${Number(month)}/${Number(day)}`
 }
